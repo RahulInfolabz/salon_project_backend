@@ -1,0 +1,29 @@
+const connectDB = require("../../db/dbConnect");
+
+async function AddCategory(req, res) {
+  try {
+    const { category_name, category_description } = req.body;
+
+    if (!category_name || !category_description) {
+      return res.status(400).json({ success: false, message: "Category name and description are required" });
+    }
+
+    const db = await connectDB();
+    const categoryImage = req.file ? `/uploads/categories/${req.file.filename}` : "";
+
+    await db.collection("service_categories").insertOne({
+      category_name,
+      category_description,
+      category_image: categoryImage,
+      status: "Active",
+      created_at: new Date(),
+    });
+
+    return res.status(201).json({ success: true, message: "Category added successfully" });
+  } catch (error) {
+    console.error("AddCategory.js: ", error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+}
+
+module.exports = { AddCategory };
