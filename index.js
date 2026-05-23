@@ -67,6 +67,7 @@ app.use(cors({
     "http://localhost:5173",
     "http://localhost:5174",
     "https://salon-project-user.onrender.com",
+    "https://salon-project-admin.onrender.com",
     "https://your-frontend.onrender.com", // ← replace with your actual frontend URL
   ],
   credentials: true,
